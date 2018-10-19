@@ -8,8 +8,9 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.1:8080").unwrap();
 
     for stream in listener.incoming() {
-        
-        handle_connection(stream.unwrap());
+        thread::spawn(|| {
+            handle_connection(stream.unwrap());
+        });
     }
 }
 
